@@ -95,8 +95,6 @@ jobs:
             echo "release_tag=bl-mt798x-Uboot-$(date +%Y.%m.%d)" >> $GITHUB_ENV
             echo "release_name=bl-mt798x-Uboot" >> $GITHUB_ENV
             echo "status=success" >> $GITHUB_OUTPUT
-            ls
-            cd
           env:
             SOC: mt7981
             BOARD: cmcc_rax3000m
@@ -117,9 +115,6 @@ jobs:
           id: organize
           if: steps.compile.outputs.status == 'success' && !cancelled()
           run: |
-             ls
-             cd
-             ls
              #  tar -cvf openwrt/bin/targets/mediatek/mt7981/packages.tar openwrt/bin/packages
              cd output
              rm -rf packages
