@@ -14,6 +14,9 @@ on:
         description: Router Model Name
         type: string
         default: ax3000t
+        options:
+          - 'ax3000t'
+          - 'ax3000t'
       multi-layout:
         required: true
         description: Enable Multiple Flash Layout Support
