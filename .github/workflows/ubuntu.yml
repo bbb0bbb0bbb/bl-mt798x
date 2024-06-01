@@ -58,27 +58,23 @@ jobs:
           SOC: ${{ inputs.soc }}
           BOARD: ${{ inputs.board }}
           MULTI_LAYOUT: ${{ inputs.multi-layout }}
-      - uses: actions/upload-artifact@v4
+          
+      - name: Upload Uboot directory
+        uses: actions/upload-artifact@v4
         with:
-          name: Uboot - ${{ inputs.board }} (${{ inputs.soc }})
+          #name: Uboot - ${{ inputs.board }} (${{ inputs.soc }})
+          name: ${{ env.release_tag }}
           path: output/*.bin
           
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
 
-      - name: Upload firmware directory
-        uses: actions/upload-artifact@main
-        if: steps.compile.outputs.status == 'success' && !cancelled()
-        with:
-           name: ${{ env.release_tag }}
-           path: openwrt/bin
-
       - name: Organize files
         id: organize
         if: steps.compile.outputs.status == 'success' && !cancelled()
         run: |
-           tar -cvf openwrt/bin/targets/mediatek/mt7981/packages.tar openwrt/bin/packages
+           #  tar -cvf openwrt/bin/targets/mediatek/mt7981/packages.tar openwrt/bin/packages
            cd openwrt/bin/targets/mediatek/mt7981
            rm -rf packages
            rm -rf feeds.buildinfo
