@@ -7,7 +7,7 @@ on:
       soc:
         required: true
         description: SOC/CPU Model
-        type: string
+        type: choice
         default: mt7981
         options:
           - 'mt7981'
@@ -15,7 +15,7 @@ on:
       board:
         required: true
         description: Router Model Name
-        type: string
+        type: choice
         default: ax3000t
         options:
           - 'ax3000t'
