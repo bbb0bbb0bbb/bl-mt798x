@@ -51,6 +51,9 @@ jobs:
       - name: Build it
         run: |
           ./build.sh
+          echo "release_tag=360T7-padavanonly-OpenWrt-mini-$(date +%Y.%m.%d)" >> $GITHUB_ENV
+          echo "release_name=360T7-padavanonly-OpenWrt-mini" >> $GITHUB_ENV
+          echo "status=success" >> $GITHUB_OUTPUT
         env:
           SOC: ${{ inputs.soc }}
           BOARD: ${{ inputs.board }}
