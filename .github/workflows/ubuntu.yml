@@ -59,3 +59,49 @@ jobs:
         with:
           name: Uboot - ${{ inputs.board }} (${{ inputs.soc }})
           path: output/*.bin
+          
+      - name: Check space usage
+        if: (!cancelled())
+        run: df -hT
+
+      - name: Upload firmware directory
+        uses: actions/upload-artifact@main
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        with:
+           name: ${{ env.release_tag }}
+           path: openwrt/bin
+
+      - name: Organize files
+        id: organize
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        run: |
+           tar -cvf openwrt/bin/targets/mediatek/mt7981/packages.tar openwrt/bin/packages
+           cd openwrt/bin/targets/mediatek/mt7981
+           rm -rf packages
+           rm -rf feeds.buildinfo
+           rm -rf sha256sums
+           rm -rf version.buildinfo
+           rm -rf *kernel.bin
+           rm -rf *manifest
+           rm -rf *tar.bz2
+           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+           echo "status=success" >> $GITHUB_OUTPUT
+        
+      - name: Upload firmware to release
+        uses: softprops/action-gh-release@v2
+        if: steps.organize.outputs.status == 'success' && !cancelled()
+        with:
+           name: ${{ env.release_name }}
+           tag_name: ${{ env.release_tag }}
+           body: |
+             Gateway：192.168.50.1
+             Password：password
+             Application：mwan3，ramfree，ua2f
+           files: ${{ env.FIRMWARE }}/*
+
+      - name: Delete older releases
+        uses: dev-drprasad/delete-older-releases@v0.3.3
+        with:
+          keep_latest: 3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
