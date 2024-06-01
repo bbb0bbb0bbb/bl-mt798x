@@ -1,5 +1,5 @@
 name: build-mt798x_Uboot CI Build
-run-name: Uboot - mt798x
+#run-name: Uboot - mt798x
 
 on:
   repository_dispatch:
