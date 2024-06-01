@@ -9,6 +9,9 @@ on:
         description: SOC/CPU Model
         type: string
         default: mt7981
+        options:
+          - 'mt7981'
+          - 'mt7981'
       board:
         required: true
         description: Router Model Name
