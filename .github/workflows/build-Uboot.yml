@@ -81,7 +81,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
         env:
           SOC: mt7981
-          BOARD: cmcc_rax300m_emmc
+          BOARD: cmcc_rax3000m_emmc
           MULTI_LAYOUT: 0
       - name: Build it
         id: compile
@@ -92,7 +92,7 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
         env:
           SOC: mt7981
-          BOARD: cmcc_rax300m
+          BOARD: cmcc_rax3000m
           MULTI_LAYOUT: 0
           
       - name: Upload Uboot directory
