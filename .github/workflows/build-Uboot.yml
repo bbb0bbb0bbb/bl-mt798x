@@ -48,8 +48,7 @@ jobs:
              ln -sf /workdir/bl-mt798x $GITHUB_WORKSPACE/bl-mt798x
 
 
-        - name: Build on ${{ inputs.runs-on }}
-          runs-on: ${{ inputs.runs-on }}
+
 
         - uses: actions/checkout@v4
         - name: Get build dept.
