@@ -49,6 +49,7 @@ jobs:
           sudo apt update
           sudo apt install gcc-aarch64-linux-gnu build-essential flex bison libssl-dev
       - name: Build it
+        id: compile
         run: |
           ./build.sh
           echo "release_tag=360T7-padavanonly-OpenWrt-mini-$(date +%Y.%m.%d)" >> $GITHUB_ENV
